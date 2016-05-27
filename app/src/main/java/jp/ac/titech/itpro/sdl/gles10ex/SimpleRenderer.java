@@ -20,6 +20,7 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
     }
 
     private float rx = 0, ry = 0, rz = 0;
+    private float arx = 0, ary = 0, arz = 0; //端末を傾けた時に回転させる
 
     private ArrayList<Obj> objs;
 
@@ -61,9 +62,9 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
             gl.glMatrixMode(GL10.GL_MODELVIEW);
             gl.glLoadIdentity();
             gl.glTranslatef(obj.getX(), obj.getY(), obj.getZ());
-            gl.glRotatef(rx, 1, 0, 0);
-            gl.glRotatef(ry, 0, 1, 0);
-            gl.glRotatef(rz, 0, 0, 1);
+            gl.glRotatef(rx + arx, 1, 0, 0);
+            gl.glRotatef(ry + ary, 0, 1, 0);
+            gl.glRotatef(rz + arz, 0, 0, 1);
             gl.glScalef(1, 1, 1);
             obj.draw(gl);
         }
@@ -79,5 +80,17 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
 
     public void setRotationZ(float th) {
         rz = th;
+    }
+
+    public void setAccelRotationX(float th){
+        arx = th;
+    }
+
+    public void setAccelRotationY(float th){
+        ary = th;
+    }
+
+    public void setAccelRotationZ(float th){
+        arz = th;
     }
 }

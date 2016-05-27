@@ -3,4 +3,6 @@
     <string name="x_label">X</string>
     <string name="y_label">Y</string>
     <string name="z_label">Z</string>
+    <string name="toast_no_accel_error">No accelerometers available</string>
+    <string name="toast_no_light_error">No Photometers available</string>
 </resources>
