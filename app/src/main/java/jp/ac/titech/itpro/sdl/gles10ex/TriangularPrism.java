@@ -6,36 +6,37 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class Pyramid implements SimpleRenderer.Obj {
-
+public class TriangularPrism implements SimpleRenderer.Obj{
     private FloatBuffer vbuf;
     private float x, y, z;
 
-    public Pyramid(float s, float x, float y, float z) {
+    public TriangularPrism(float s, float x, float y, float z) {
         float[] vertices = {
                 // bottom
-
-                -s, 0, -s,
-                s, 0, -s,
-                -s, 0, s,
-                s, 0, s,
+                s, 0, 0,
+                0, 0, s,
+                0, 0, -s,
                 // left
-                -s, 0, -s,
-                0, s, 0,
-                -s, 0, s,
+                s, 0, 0,
+                0, 0, s,
+                s, s, 0,
+                0, s, s,
                 // right
-                s, 0, -s,
-                0, s, 0,
-                s, 0, s,
-                // back
-                -s, 0, -s,
-                0, s, 0,
-                s, 0, -s,
-                // front
-                -s, 0, s,
-                0, s, 0,
-                s, 0, s
+                s, 0, 0,
+                0, 0, -s,
+                s, s, 0,
+                0, s, -s,
 
+                // back
+                0, 0, s,
+                0, s, s,
+                0, 0, -s,
+                0, s, -s,
+
+                // top
+                s, s, 0,
+                0, s, s,
+                0, s, -s
 
         };
         vbuf = ByteBuffer.allocateDirect(vertices.length * 4)
@@ -54,23 +55,25 @@ public class Pyramid implements SimpleRenderer.Obj {
 
         // bottom
         gl.glNormal3f(0, -1, 0);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
+        gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
 
         // left
-        gl.glNormal3f(-1, 1, 0);
-        gl.glDrawArrays(GL10.GL_TRIANGLES, 4, 3);
+        gl.glNormal3f(1, 0, 1);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 3, 4);
+
 
         // right
-        gl.glNormal3f(1, 1, 0);
-        gl.glDrawArrays(GL10.GL_TRIANGLES, 7, 3);
+        gl.glNormal3f(1, 0, -1);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 7, 4);
+
 
         // back
-        gl.glNormal3f(0, 1, -1);
-        gl.glDrawArrays(GL10.GL_TRIANGLES, 10, 3);
+        gl.glNormal3f(-1, 0, 0);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 11, 4);
 
-        // front
-        gl.glNormal3f(0, 1, 1);
-        gl.glDrawArrays(GL10.GL_TRIANGLES, 13, 3);
+        // top
+        gl.glNormal3f(0, 1, 0);
+        gl.glDrawArrays(GL10.GL_TRIANGLES, 15, 3);
     }
 
     @Override
